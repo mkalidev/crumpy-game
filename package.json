@@ -1,0 +1,20 @@
+{
+  "name": "crumpy-game",
+  "version": "1.0.0",
+  "description": "2405 game with wallet authentication and MongoDB points system",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "auto-commit": "node auto-commit.js",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": ["2405", "game", "blockchain", "wallet"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
