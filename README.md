@@ -225,7 +225,7 @@ The application is built with a clean, modular component structure:
 
 **Main Contract**: `0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885`
 
-The contract is deployed on the Ethereum mainnet (or your configured network). You can view it on [Etherscan](https://etherscan.io/address/0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885) (replace with your network's block explorer).
+The contract is deployed on Base mainnet. You can view it on [Basescan](https://basescan.org/address/0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885).
 
 ### Contract Features
 
@@ -269,7 +269,8 @@ The app includes custom hooks in `lib/hooks/useContract.js`:
 - **Database**: MongoDB, Mongoose
 - **Authentication**: JWT, Reown AppKit (WalletConnect), Wagmi
 - **Blockchain**: Wagmi, Viem
-- **Smart Contracts**: Solidity (Ethereum-compatible)
+- **Network**: Base Mainnet
+- **Smart Contracts**: Solidity (EVM-compatible)
 - **Contract Address**: `0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885`
 - **Wallet Integration**: Reown AppKit (supports MetaMask, WalletConnect, Coinbase, etc.)
 
