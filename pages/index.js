@@ -133,8 +133,8 @@ export default function Home() {
 
       <main className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-8 text-white">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-lg">
+          <header className="text-center mb-8">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 drop-shadow-lg">
               2405 Game
             </h1>
             {walletAddress && (
