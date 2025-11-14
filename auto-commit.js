@@ -11,7 +11,7 @@ const commitChanges = () => {
 
     const timestamp = new Date().toISOString();
     execSync('git add .', { stdio: 'inherit' });
-    execSync(`git commit -m "Auto-commit at ${timestamp}"`, { stdio: 'inherit' });
+    execSync(`git commit -m "made changes at ${timestamp}"`, { stdio: 'inherit' });
     console.log(`✓ Committed changes at ${timestamp}`);
   } catch (err) {
     // No changes to commit or other error
