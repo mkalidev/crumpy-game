@@ -225,29 +225,29 @@ export default function Game2048({ onScore }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl">
+    <div className="bg-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-700">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-        <div className="bg-[#bbada0] rounded-xl py-4 px-6 text-center text-white w-full sm:w-auto">
+        <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl py-4 px-6 text-center text-white w-full sm:w-auto shadow-lg">
           <div className="text-xs uppercase opacity-90">Score</div>
           <div className="text-2xl sm:text-3xl font-bold">{score.toLocaleString()}</div>
         </div>
         <button 
-          className="bg-[#8f7a66] text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] w-full sm:w-auto" 
+          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-lg w-full sm:w-auto" 
           onClick={resetGame}
         >
           New Game
         </button>
       </div>
 
-      <div className="text-center mb-6 text-[#776e65] text-sm px-2">
+      <div className="text-center mb-6 text-gray-300 text-sm px-2">
         <p className="mb-2">Use arrow keys or swipe to move tiles. When two tiles with the same number touch, they merge into one!</p>
-        <p><strong>Goal: Reach 2405!</strong></p>
+        <p className="text-cyan-400 font-semibold"><strong>Goal: Reach 2405!</strong></p>
       </div>
 
-      <div className="relative w-full max-w-[500px] mx-auto mb-6 aspect-square bg-[#bbada0] rounded-xl p-2.5">
+      <div className="relative w-full max-w-[500px] mx-auto mb-6 aspect-square bg-gray-800 rounded-xl p-2.5 border border-gray-700">
         <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
           {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
-            <div key={index} className="bg-[rgba(238,228,218,0.35)] rounded-md"></div>
+            <div key={index} className="bg-gray-700/50 rounded-md border border-gray-600"></div>
           ))}
         </div>
         <div className="absolute top-2.5 left-2.5 right-2.5 bottom-2.5">
