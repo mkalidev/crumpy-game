@@ -1,20 +1,29 @@
 {
   "name": "crumpy-game",
   "version": "1.0.0",
-  "description": "2405 game with wallet authentication and MongoDB points system",
-  "main": "server/index.js",
+  "description": "2405 game with wallet authentication and MongoDB points system - Next.js App",
+  "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm start",
-    "auto-commit": "node auto-commit.js",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "auto-commit": "node auto-commit.js"
   },
-  "keywords": ["2405", "game", "blockchain", "wallet"],
-  "author": "",
-  "license": "MIT",
+  "dependencies": {
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ethers": "^6.9.0",
+    "mongoose": "^8.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "axios": "^1.6.2"
+  },
   "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4"
+  },
+  "keywords": ["2405", "game", "nextjs", "blockchain", "wallet"],
+  "author": "",
+  "license": "MIT"
 }
-
