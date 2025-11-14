@@ -8,7 +8,7 @@ export default function useAuthHandler() {
   const { signMessageAsync } = useSignMessage();
   const { disconnect } = useDisconnect();
   const { open } = useAppKit();
-  
+
   const [token, setToken] = useState('');
   const [points, setPoints] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -19,7 +19,7 @@ export default function useAuthHandler() {
     if (typeof window !== 'undefined') {
       const storedToken = localStorage.getItem('gameToken');
       const storedWallet = localStorage.getItem('walletAddress');
-      
+
       if (storedToken && storedWallet) {
         setToken(storedToken);
         fetchPoints(storedToken);
@@ -41,10 +41,10 @@ export default function useAuthHandler() {
 
   const fetchPoints = async (authToken = token) => {
     if (!authToken) return;
-    
+
     try {
       const response = await axios.get('/api/points', {
-        headers: { Authorization: `Bearer ${authToken}` }
+        headers: { Authorization: `Bearer ${authToken}` },
       });
       setPoints(response.data.points);
       setHighScore(response.data.highScore);
@@ -68,7 +68,7 @@ export default function useAuthHandler() {
     try {
       // Create authentication message
       const message = `Please sign this message to authenticate with 2405 Game.\n\nWallet: ${walletAddress}\n\nThis will not cost any gas.`;
-      
+
       // Sign message using wagmi
       const signature = await signMessageAsync({ message });
 
@@ -76,7 +76,7 @@ export default function useAuthHandler() {
       const response = await axios.post('/api/auth', {
         walletAddress,
         signature,
-        message
+        message,
       });
 
       setToken(response.data.token);
@@ -113,7 +113,7 @@ export default function useAuthHandler() {
     try {
       // Calculate points: 1 point per 100 score
       const pointsEarned = Math.floor(score / 100);
-      
+
       if (pointsEarned > 0) {
         const response = await axios.post(
           '/api/points',
@@ -142,4 +142,3 @@ export default function useAuthHandler() {
     handleGameScore,
   };
 }
-

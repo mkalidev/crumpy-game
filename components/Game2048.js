@@ -11,7 +11,9 @@ export default function Game2048({ onScore }) {
 
   // Initialize empty grid
   const initializeGrid = () => {
-    const newGrid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
+    const newGrid = Array(GRID_SIZE)
+      .fill(null)
+      .map(() => Array(GRID_SIZE).fill(0));
     addRandomTile(newGrid);
     addRandomTile(newGrid);
     return newGrid;
@@ -27,7 +29,7 @@ export default function Game2048({ onScore }) {
         }
       }
     }
-    
+
     if (emptyCells.length > 0) {
       const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
       gridToUpdate[randomCell.row][randomCell.col] = Math.random() < 0.9 ? 2 : 4;
@@ -36,10 +38,10 @@ export default function Game2048({ onScore }) {
 
   // Move tiles left
   const moveLeft = (gridToMove) => {
-    const newGrid = gridToMove.map(row => {
-      const filtered = row.filter(val => val !== 0);
+    const newGrid = gridToMove.map((row) => {
+      const filtered = row.filter((val) => val !== 0);
       const merged = [];
-      
+
       for (let i = 0; i < filtered.length; i++) {
         if (i < filtered.length - 1 && filtered[i] === filtered[i + 1]) {
           merged.push(filtered[i] * 2);
@@ -48,23 +50,23 @@ export default function Game2048({ onScore }) {
           merged.push(filtered[i]);
         }
       }
-      
+
       while (merged.length < GRID_SIZE) {
         merged.push(0);
       }
-      
+
       return merged;
     });
-    
+
     return newGrid;
   };
 
   // Move tiles right
   const moveRight = (gridToMove) => {
-    const newGrid = gridToMove.map(row => {
-      const filtered = row.filter(val => val !== 0);
+    const newGrid = gridToMove.map((row) => {
+      const filtered = row.filter((val) => val !== 0);
       const merged = [];
-      
+
       for (let i = filtered.length - 1; i >= 0; i--) {
         if (i > 0 && filtered[i] === filtered[i - 1]) {
           merged.unshift(filtered[i] * 2);
@@ -73,21 +75,23 @@ export default function Game2048({ onScore }) {
           merged.unshift(filtered[i]);
         }
       }
-      
+
       while (merged.length < GRID_SIZE) {
         merged.unshift(0);
       }
-      
+
       return merged;
     });
-    
+
     return newGrid;
   };
 
   // Move tiles up
   const moveUp = (gridToMove) => {
-    const newGrid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
-    
+    const newGrid = Array(GRID_SIZE)
+      .fill(null)
+      .map(() => Array(GRID_SIZE).fill(0));
+
     for (let col = 0; col < GRID_SIZE; col++) {
       const column = [];
       for (let row = 0; row < GRID_SIZE; row++) {
@@ -95,7 +99,7 @@ export default function Game2048({ onScore }) {
           column.push(gridToMove[row][col]);
         }
       }
-      
+
       const merged = [];
       for (let i = 0; i < column.length; i++) {
         if (i < column.length - 1 && column[i] === column[i + 1]) {
@@ -105,23 +109,25 @@ export default function Game2048({ onScore }) {
           merged.push(column[i]);
         }
       }
-      
+
       while (merged.length < GRID_SIZE) {
         merged.push(0);
       }
-      
+
       for (let row = 0; row < GRID_SIZE; row++) {
         newGrid[row][col] = merged[row];
       }
     }
-    
+
     return newGrid;
   };
 
   // Move tiles down
   const moveDown = (gridToMove) => {
-    const newGrid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
-    
+    const newGrid = Array(GRID_SIZE)
+      .fill(null)
+      .map(() => Array(GRID_SIZE).fill(0));
+
     for (let col = 0; col < GRID_SIZE; col++) {
       const column = [];
       for (let row = 0; row < GRID_SIZE; row++) {
@@ -129,7 +135,7 @@ export default function Game2048({ onScore }) {
           column.push(gridToMove[row][col]);
         }
       }
-      
+
       const merged = [];
       for (let i = column.length - 1; i >= 0; i--) {
         if (i > 0 && column[i] === column[i - 1]) {
@@ -139,16 +145,16 @@ export default function Game2048({ onScore }) {
           merged.unshift(column[i]);
         }
       }
-      
+
       while (merged.length < GRID_SIZE) {
         merged.unshift(0);
       }
-      
+
       for (let row = 0; row < GRID_SIZE; row++) {
         newGrid[row][col] = merged[row];
       }
     }
-    
+
     return newGrid;
   };
 
@@ -160,7 +166,7 @@ export default function Game2048({ onScore }) {
         if (gridToCheck[i][j] === 0) return false;
       }
     }
-    
+
     // Check for possible merges
     for (let i = 0; i < GRID_SIZE; i++) {
       for (let j = 0; j < GRID_SIZE; j++) {
@@ -173,65 +179,68 @@ export default function Game2048({ onScore }) {
         }
       }
     }
-    
+
     return true;
   };
 
   // Move function for all directions
-  const move = useCallback((direction) => {
-    if (gameOver || won) return;
+  const move = useCallback(
+    (direction) => {
+      if (gameOver || won) return;
 
-    let newGrid = grid.map(row => [...row]);
-    
-    switch (direction) {
-      case 'left':
-        newGrid = moveLeft(newGrid);
-        break;
-      case 'right':
-        newGrid = moveRight(newGrid);
-        break;
-      case 'up':
-        newGrid = moveUp(newGrid);
-        break;
-      case 'down':
-        newGrid = moveDown(newGrid);
-        break;
-      default:
-        return;
-    }
+      let newGrid = grid.map((row) => [...row]);
 
-    // Check if grid changed
-    const gridChanged = JSON.stringify(grid) !== JSON.stringify(newGrid);
-    
-    if (gridChanged) {
-      addRandomTile(newGrid);
-      setGrid(newGrid);
-      
-      // Calculate new score
-      let newScore = 0;
-      for (let i = 0; i < GRID_SIZE; i++) {
-        for (let j = 0; j < GRID_SIZE; j++) {
-          if (newGrid[i][j] >= 2405) {
-            setWon(true);
+      switch (direction) {
+        case 'left':
+          newGrid = moveLeft(newGrid);
+          break;
+        case 'right':
+          newGrid = moveRight(newGrid);
+          break;
+        case 'up':
+          newGrid = moveUp(newGrid);
+          break;
+        case 'down':
+          newGrid = moveDown(newGrid);
+          break;
+        default:
+          return;
+      }
+
+      // Check if grid changed
+      const gridChanged = JSON.stringify(grid) !== JSON.stringify(newGrid);
+
+      if (gridChanged) {
+        addRandomTile(newGrid);
+        setGrid(newGrid);
+
+        // Calculate new score
+        let newScore = 0;
+        for (let i = 0; i < GRID_SIZE; i++) {
+          for (let j = 0; j < GRID_SIZE; j++) {
+            if (newGrid[i][j] >= 2405) {
+              setWon(true);
+            }
+            newScore += newGrid[i][j];
           }
-          newScore += newGrid[i][j];
+        }
+
+        setScore(newScore);
+
+        // Check for game over
+        if (isGameOver(newGrid)) {
+          setGameOver(true);
         }
       }
-      
-      setScore(newScore);
-      
-      // Check for game over
-      if (isGameOver(newGrid)) {
-        setGameOver(true);
-      }
-    }
-  }, [grid, gameOver]);
+    },
+    [grid, gameOver]
+  );
 
   // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (gameOver) return;
-      
+
       switch (e.key) {
         case 'ArrowLeft':
           e.preventDefault();
@@ -280,7 +289,7 @@ export default function Game2048({ onScore }) {
   // Get tile color based on value - Dark theme colors
   const getTileColor = (value) => {
     if (value === 0) return '#2d3748';
-    
+
     const colors = {
       2: '#374151',
       4: '#4b5563',
@@ -295,7 +304,7 @@ export default function Game2048({ onScore }) {
       2048: '#3b82f6',
       2405: '#fbbf24', // Special golden color for winning tile
     };
-    
+
     return colors[value] || '#1e293b';
   };
 
@@ -313,8 +322,8 @@ export default function Game2048({ onScore }) {
           <div className="text-xs uppercase opacity-90">Score</div>
           <div className="text-2xl sm:text-3xl font-bold">{score.toLocaleString()}</div>
         </div>
-        <button 
-          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-lg w-full sm:w-auto" 
+        <button
+          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-lg w-full sm:w-auto"
           onClick={resetGame}
         >
           New Game
@@ -322,65 +331,76 @@ export default function Game2048({ onScore }) {
       </div>
 
       <div className="text-center mb-8 text-gray-300 text-sm px-2">
-        <p className="mb-2">Use arrow keys or click buttons to move tiles. When two tiles with the same number touch, they merge into one!</p>
-        <p className="text-cyan-400 font-semibold"><strong>Goal: Reach 2405!</strong></p>
+        <p className="mb-2">
+          Use arrow keys or click buttons to move tiles. When two tiles with the same number touch,
+          they merge into one!
+        </p>
+        <p className="text-cyan-400 font-semibold">
+          <strong>Goal: Reach 2405!</strong>
+        </p>
       </div>
 
       <div className="relative w-full max-w-[500px] mx-auto mb-8 aspect-square bg-gray-800 rounded-xl p-2.5 border-2 border-gray-700 shadow-inner">
         <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
-          {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
-            <div key={index} className="bg-gray-700/40 rounded-lg border border-gray-600/50"></div>
-          ))}
+          {Array(GRID_SIZE * GRID_SIZE)
+            .fill(null)
+            .map((_, index) => (
+              <div
+                key={index}
+                className="bg-gray-700/40 rounded-lg border border-gray-600/50"
+              ></div>
+            ))}
         </div>
         <div className="absolute top-2.5 left-2.5 right-2.5 bottom-2.5">
           {grid.map((row, i) =>
-            row.map((value, j) =>
-              value !== 0 && (
-                <div
-                  key={`${i}-${j}-${value}`}
-                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-lg text-xl sm:text-2xl lg:text-3xl font-bold flex items-center justify-center transition-all duration-200 ease-out z-10 shadow-lg"
-                  style={{
-                    left: `${j * (100 / GRID_SIZE)}%`,
-                    top: `${i * (100 / GRID_SIZE)}%`,
-                    backgroundColor: getTileColor(value),
-                    color: getTextColor(value),
-                    transform: 'scale(1)',
-                  }}
-                >
-                  {value}
-                </div>
-              )
+            row.map(
+              (value, j) =>
+                value !== 0 && (
+                  <div
+                    key={`${i}-${j}-${value}`}
+                    className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-lg text-xl sm:text-2xl lg:text-3xl font-bold flex items-center justify-center transition-all duration-200 ease-out z-10 shadow-lg"
+                    style={{
+                      left: `${j * (100 / GRID_SIZE)}%`,
+                      top: `${i * (100 / GRID_SIZE)}%`,
+                      backgroundColor: getTileColor(value),
+                      color: getTextColor(value),
+                      transform: 'scale(1)',
+                    }}
+                  >
+                    {value}
+                  </div>
+                )
             )
           )}
         </div>
       </div>
 
       <div className="flex justify-center items-center gap-3 flex-wrap">
-        <button 
-          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
+        <button
+          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]"
           onClick={() => move('left')}
           disabled={gameOver || won}
         >
           ← Left
         </button>
         <div className="flex flex-col gap-3">
-          <button 
-            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
+          <button
+            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]"
             onClick={() => move('up')}
             disabled={gameOver || won}
           >
             ↑ Up
           </button>
-          <button 
-            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
+          <button
+            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]"
             onClick={() => move('down')}
             disabled={gameOver || won}
           >
             ↓ Down
           </button>
         </div>
-        <button 
-          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
+        <button
+          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]"
           onClick={() => move('right')}
           disabled={gameOver || won}
         >
@@ -393,7 +413,9 @@ export default function Game2048({ onScore }) {
           <div className="bg-gray-900 border border-gray-700 rounded-3xl p-10 text-center max-w-md shadow-2xl">
             {won ? (
               <>
-                <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4 text-4xl font-bold">🎉 You Won!</h2>
+                <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4 text-4xl font-bold">
+                  🎉 You Won!
+                </h2>
                 <p className="text-gray-300 mb-6 text-lg">You reached 2405! Amazing!</p>
               </>
             ) : (
@@ -402,8 +424,8 @@ export default function Game2048({ onScore }) {
                 <p className="text-gray-300 mb-6 text-lg">Final Score: {score.toLocaleString()}</p>
               </>
             )}
-            <button 
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-4 px-10 rounded-xl text-lg font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-xl" 
+            <button
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-4 px-10 rounded-xl text-lg font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-xl"
               onClick={resetGame}
             >
               Play Again
@@ -414,4 +436,3 @@ export default function Game2048({ onScore }) {
     </div>
   );
 }
-

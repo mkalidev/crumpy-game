@@ -21,7 +21,10 @@ export default function Home() {
     <>
       <Head>
         <title>2405 Game - Play & Earn Points</title>
-        <meta name="description" content="Play 2405 Game with Web3 wallet authentication and earn points!" />
+        <meta
+          name="description"
+          content="Play 2405 Game with Web3 wallet authentication and earn points!"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -40,4 +43,3 @@ export default function Home() {
     </>
   );
 }
-

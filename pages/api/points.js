@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   await connectDB();
 
   const decoded = authenticateToken(req);
-  
+
   if (!decoded || !decoded.walletAddress) {
     return res.status(401).json({ error: 'Access token required' });
   }
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
       res.json({
         points: user.points,
-        highScore: user.highScore
+        highScore: user.highScore,
       });
     } catch (err) {
       console.error('Get points error:', err);
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
       res.json({
         points: user.points,
-        highScore: user.highScore
+        highScore: user.highScore,
       });
     } catch (err) {
       console.error('Update points error:', err);
@@ -63,4 +63,3 @@ export default async function handler(req, res) {
     res.status(405).json({ error: 'Method not allowed' });
   }
 }
-

@@ -7,8 +7,8 @@ export default function WalletAuth({ onConnect, loading, isConnected }) {
         <p className="text-gray-400 mb-8 leading-relaxed">
           Connect your Web3 wallet to play 2405 Game and earn points!
         </p>
-        <button 
-          className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-none py-4 px-10 rounded-full text-lg font-bold cursor-pointer transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:from-cyan-400 hover:to-blue-500 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed w-full sm:w-auto" 
+        <button
+          className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-none py-4 px-10 rounded-full text-lg font-bold cursor-pointer transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:from-cyan-400 hover:to-blue-500 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed w-full sm:w-auto"
           onClick={onConnect}
           disabled={loading}
         >
@@ -21,4 +21,3 @@ export default function WalletAuth({ onConnect, loading, isConnected }) {
     </div>
   );
 }
-

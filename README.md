@@ -23,6 +23,7 @@ A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet
 ## Installation
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -37,7 +38,7 @@ npm install
      JWT_SECRET=your-secret-jwt-key-change-this-in-production
      NEXT_PUBLIC_PROJECT_ID=your-reown-project-id
      ```
-   
+
    **Getting your Reown Project ID:**
    - Visit https://dashboard.reown.com
    - Create a new project or use an existing one
@@ -70,6 +71,7 @@ npm run auto-commit
 ```
 
 The script will detect changed files and create commit messages in the format:
+
 ```
 - updated - filename1.js
 - updated - filename2.js

@@ -10,11 +10,10 @@ function getCookieString() {
 
 export default function App({ Component, pageProps }) {
   const cookies = getCookieString();
-  
+
   return (
     <ContextProvider cookies={cookies}>
       <Component {...pageProps} />
     </ContextProvider>
   );
 }
-

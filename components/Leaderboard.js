@@ -29,7 +29,9 @@ export default function Leaderboard() {
 
   return (
     <div className="bg-gray-900 border border-gray-700 rounded-3xl p-5 sm:p-6 shadow-2xl h-fit">
-      <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-5 text-xl sm:text-2xl font-bold text-center">🏆 Leaderboard</h2>
+      <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-5 text-xl sm:text-2xl font-bold text-center">
+        🏆 Leaderboard
+      </h2>
       {loading ? (
         <div className="text-center text-gray-400 py-5">Loading...</div>
       ) : leaderboard.length === 0 ? (
@@ -37,8 +39,8 @@ export default function Leaderboard() {
       ) : (
         <div className="flex flex-col gap-2">
           {leaderboard.map((user, index) => (
-            <div 
-              key={user._id || index} 
+            <div
+              key={user._id || index}
               className="grid grid-cols-[35px_1fr_auto] sm:grid-cols-[40px_1fr_auto] items-center gap-3 sm:gap-4 p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg transition-all hover:translate-x-1 hover:border-gray-600 hover:bg-gray-700"
             >
               <div className="font-bold text-gray-300 text-base sm:text-lg text-center">
@@ -60,4 +62,3 @@ export default function Leaderboard() {
     </div>
   );
 }
-

@@ -6,7 +6,9 @@ import { mainnet, arbitrum } from '@reown/appkit/networks';
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
 if (!projectId) {
-  throw new Error('Project ID is not defined. Please set NEXT_PUBLIC_PROJECT_ID in your .env.local file');
+  throw new Error(
+    'Project ID is not defined. Please set NEXT_PUBLIC_PROJECT_ID in your .env.local file'
+  );
 }
 
 export const networks = [mainnet, arbitrum];
@@ -22,4 +24,3 @@ export const wagmiAdapter = new WagmiAdapter({
 });
 
 export const config = wagmiAdapter.wagmiConfig;
-

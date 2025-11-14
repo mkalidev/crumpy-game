@@ -4,4 +4,3 @@
  */
 
 export { contractABI, contractAddress } from './contractABI';
-

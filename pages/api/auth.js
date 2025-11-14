@@ -41,12 +41,11 @@ export default async function handler(req, res) {
       user: {
         walletAddress: user.walletAddress,
         points: user.points,
-        highScore: user.highScore
-      }
+        highScore: user.highScore,
+      },
     });
   } catch (err) {
     console.error('Auth error:', err);
     res.status(500).json({ error: 'Authentication failed' });
   }
 }
-
