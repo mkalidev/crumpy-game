@@ -3,11 +3,19 @@ import { useState, useEffect, useCallback } from 'react';
 const GRID_SIZE = 4;
 const WINNING_TILE = 2405; // Game goal - reach 2405!
 
+import { useStartGame, useEndGame } from '@/lib/hooks/useContract';
+import { useAccount } from 'wagmi';
+
 export default function Game2048({ onScore }) {
+  const { address, isConnected } = useAccount();
+  const { startGame: startContractGame, isPending: isStartingGame } = useStartGame();
+  const { endGame: endContractGame, isPending: isEndingGame } = useEndGame();
+  
   const [grid, setGrid] = useState([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [won, setWon] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   // Initialize empty grid
   const initializeGrid = () => {
@@ -267,23 +275,65 @@ export default function Game2048({ onScore }) {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [move, gameOver]);
 
+  // Start game on contract when component mounts
+  useEffect(() => {
+    if (isConnected && address && !gameStarted) {
+      handleStartGame();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, address]);
+
   // Initialize game
   useEffect(() => {
-    setGrid(initializeGrid());
+    const newGrid = initializeGrid();
+    setGrid(newGrid);
     setScore(0);
     setGameOver(false);
     setWon(false);
   }, []);
 
+  // Handle contract game start
+  const handleStartGame = async () => {
+    if (!isConnected || !address || gameStarted) return;
+
+    try {
+      await startContractGame();
+      setGameStarted(true);
+    } catch (err) {
+      console.error('Failed to start game on contract:', err);
+      // Continue with local game even if contract fails
+      setGameStarted(true);
+    }
+  };
+
   // Reset game
-  const resetGame = () => {
+  const resetGame = async () => {
     if (onScore && score > 0) {
       onScore(score);
     }
+
+    // End current game on contract if started
+    if (gameStarted && isConnected && address && score > 0) {
+      try {
+        await endContractGame(score);
+      } catch (err) {
+        console.error('Failed to end game on contract:', err);
+      }
+    }
+
+    // Start new game on contract
+    setGameStarted(false);
     setGrid(initializeGrid());
     setScore(0);
     setGameOver(false);
     setWon(false);
+
+    // Start new game on contract
+    if (isConnected && address) {
+      setTimeout(() => {
+        handleStartGame();
+      }, 500);
+    }
   };
 
   // Get tile color based on value - Dark theme colors
@@ -322,11 +372,12 @@ export default function Game2048({ onScore }) {
           <div className="text-xs uppercase opacity-90">Score</div>
           <div className="text-2xl sm:text-3xl font-bold">{score.toLocaleString()}</div>
         </div>
-        <button
-          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-lg w-full sm:w-auto"
+        <button 
+          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-lg w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed" 
           onClick={resetGame}
+          disabled={isStartingGame || isEndingGame}
         >
-          New Game
+          {isStartingGame || isEndingGame ? 'Processing...' : 'New Game'}
         </button>
       </div>
 

@@ -153,6 +153,11 @@ export default function useAuthHandler() {
         setPoints(response.data.points);
         setHighScore(response.data.highScore);
       }
+
+      // Refetch contract stats after score update
+      if (address) {
+        refetchPlayerStats();
+      }
     } catch (err) {
       console.error('Failed to update points:', err);
     }
@@ -166,6 +171,19 @@ export default function useAuthHandler() {
     loading,
     address,
     isConnected,
+    contractRewards,
+    contractHighScore,
+    playerStats: playerStats
+      ? {
+          totalGamesPlayed: Number(playerStats[0] || 0),
+          highScore: Number(playerStats[1] || 0),
+          totalScore: Number(playerStats[2] || 0),
+          rewardPoints: Number(playerStats[3] || 0),
+          claimedRewards: Number(playerStats[4] || 0),
+          unclaimedRewards: Number(playerStats[5] || 0),
+        }
+      : null,
+    refetchPlayerStats,
     // Actions
     handleWalletConnect,
     handleLogout,
