@@ -153,14 +153,55 @@ All API routes are in the `pages/api/` directory:
 The application is built with a clean, modular component structure:
 
 - **`pages/index.js`**: Main page component that orchestrates the app
-- **`components/AuthHandler.js`**: Custom hook managing all authentication logic
+- **`components/AuthHandler.js`**: Custom hook managing all authentication logic and contract stats
 - **`components/GameContainer.js`**: Main container component for game UI
 - **`components/GameLayout.js`**: Layout component organizing game and leaderboard
 - **`components/GameHeader.js`**: Page header with title
-- **`components/Game2048.js`**: Core game component
+- **`components/Game2048.js`**: Core game component with smart contract integration (start/end game)
 - **`components/WalletAuth.js`**: Wallet connection UI
-- **`components/PointsDisplay.js`**: User stats display
+- **`components/PointsDisplay.js`**: User stats display with reward claiming functionality
 - **`components/Leaderboard.js`**: Top players display
+
+## Smart Contract Integration
+
+### Contract Address
+
+**Main Contract**: `0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885`
+
+The contract is deployed on the Ethereum mainnet (or your configured network). You can view it on [Etherscan](https://etherscan.io/address/0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885) (replace with your network's block explorer).
+
+### Contract Features
+
+- **Game Sessions**: Track active games on-chain
+- **Rewards System**: Earn rewards based on milestones (2048, 4096, 8192)
+- **Leaderboard**: On-chain leaderboard for top players
+- **Player Stats**: Track total games played, high score, total score, and rewards
+- **Reward Claims**: Claim accumulated rewards when ready
+
+### Contract Hooks
+
+The app includes custom hooks in `lib/hooks/useContract.js`:
+
+- `useStartGame()`: Start a new game session on the contract
+- `useEndGame()`: End the current game and record the final score
+- `useClaimRewards()`: Claim accumulated rewards
+- `usePlayerStats()`: Get player statistics from the contract
+- `useActiveGame()`: Get the current active game session
+- `useContractLeaderboard()`: Get the on-chain leaderboard
+
+### Contract Functions
+
+**Read Functions:**
+- `getPlayerStats(address)`: Get player statistics
+- `getActiveGame(address)`: Get current active game
+- `getLeaderboard()`: Get top players
+- `getUnclaimedRewards(address)`: Get pending rewards
+- `calculateRewards(score)`: Calculate rewards for a score
+
+**Write Functions:**
+- `startGame()`: Start a new game session
+- `endGame(uint256 finalScore)`: End game and record score
+- `claimRewards()`: Claim accumulated rewards
 
 ## Technologies Used
 
@@ -169,7 +210,26 @@ The application is built with a clean, modular component structure:
 - **Database**: MongoDB, Mongoose
 - **Authentication**: JWT, Reown AppKit (WalletConnect), Wagmi
 - **Blockchain**: Wagmi, Viem
+- **Smart Contracts**: Solidity (Ethereum-compatible)
+- **Contract Address**: `0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885`
 - **Wallet Integration**: Reown AppKit (supports MetaMask, WalletConnect, Coinbase, etc.)
+
+### Contract Events
+
+The contract emits the following events:
+- `GameStarted`: Emitted when a player starts a new game
+- `GameEnded`: Emitted when a game ends with score and rewards
+- `HighScoreUpdated`: Emitted when a player achieves a new high score
+- `RewardsClaimed`: Emitted when a player claims their rewards
+
+### Integration Flow
+
+1. **Connect Wallet**: User connects wallet using Reown AppKit
+2. **Start Game**: When a new game begins, `startGame()` is called on the contract
+3. **Play Game**: Game logic runs locally while contract tracks the session
+4. **End Game**: When game ends, `endGame(finalScore)` records the score on-chain
+5. **Calculate Rewards**: Contract calculates rewards based on milestones achieved
+6. **Claim Rewards**: User can claim accumulated rewards via `claimRewards()`
 
 ## License
 
