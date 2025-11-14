@@ -11,19 +11,28 @@
     "auto-commit": "node auto-commit.js"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "axios": "^1.6.2",
+    "ethers": "^6.9.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
     "next": "^14.0.4",
+    "postcss": "^8.5.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ethers": "^6.9.0",
-    "mongoose": "^8.0.3",
-    "jsonwebtoken": "^9.0.2",
-    "axios": "^1.6.2"
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4"
   },
-  "keywords": ["2405", "game", "nextjs", "blockchain", "wallet"],
+  "keywords": [
+    "2405",
+    "game",
+    "nextjs",
+    "blockchain",
+    "wallet"
+  ],
   "author": "",
   "license": "MIT"
 }
