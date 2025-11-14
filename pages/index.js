@@ -131,26 +131,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen p-5">
+      <main className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-8 text-white">
-            <h1 className="text-6xl font-bold mb-5 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-lg">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-lg">
               2405 Game
             </h1>
             {walletAddress && (
-              <PointsDisplay 
-                points={points} 
-                highScore={highScore}
-                walletAddress={walletAddress}
-                onLogout={handleLogout}
-              />
+              <div className="max-w-3xl mx-auto">
+                <PointsDisplay 
+                  points={points} 
+                  highScore={highScore}
+                  walletAddress={walletAddress}
+                  onLogout={handleLogout}
+                />
+              </div>
             )}
           </header>
 
           {!token ? (
             <WalletAuth onConnect={handleWalletConnect} loading={loading} />
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-6 lg:gap-8">
               <Game2048 onScore={handleGameScore} />
               <Leaderboard />
             </div>
