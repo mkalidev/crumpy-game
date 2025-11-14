@@ -1,0 +1,82 @@
+.pointsDisplay {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.pointsInfo {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.pointItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pointLabel {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 5px;
+}
+
+.pointValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.walletInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.walletAddress {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.logoutButton {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.9rem;
+}
+
+.logoutButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .pointsDisplay {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pointsInfo {
+    justify-content: space-around;
+  }
+
+  .walletInfo {
+    justify-content: center;
+  }
+}
+
