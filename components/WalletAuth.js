@@ -14,7 +14,7 @@ export default function WalletAuth({ onConnect, loading }) {
         >
           {loading ? 'Connecting...' : 'Connect Wallet'}
         </button>
-        <p className="mt-5 text-sm text-[#999]">
+        <p className="mt-5 text-sm text-[#999] bg">
           You'll need MetaMask or another Web3 wallet installed in your browser.
         </p>
       </div>
