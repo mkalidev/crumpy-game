@@ -4,7 +4,7 @@
  * Replace this array with your contract's ABI.
  * You can get the ABI from:
  * - Your contract compilation output (artifacts)
- * - Etherscan (if verified)
+ * - Basescan (if verified on Base mainnet)
  * - Your development environment (Hardhat, Truffle, etc.)
  */
 

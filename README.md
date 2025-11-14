@@ -192,9 +192,9 @@ crumpy-game/
 4. Use arrow keys or on-screen buttons to move tiles
 5. Merge tiles with the same number to create higher values
 6. Try to reach 2405!
-7. Earn points on MongoDB (1 point per 100 score) and on-chain rewards via the contract
-8. When the game ends, your score is automatically recorded on the blockchain
-9. Claim your rewards when you're ready (gas fee required for claiming)
+7. Earn points on MongoDB (1 point per 100 score) and on-chain rewards via the contract on Base mainnet
+8. When the game ends, your score is automatically recorded on Base mainnet
+9. Claim your rewards when you're ready (gas fee required for claiming on Base mainnet)
 
 ## API Endpoints
 
