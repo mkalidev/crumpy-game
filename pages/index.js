@@ -9,7 +9,11 @@ import Leaderboard from '../components/Leaderboard';
 import { useAppKit } from '@reown/appkit/react';
 
 export default function Home() {
-  const [walletAddress, setWalletAddress] = useState('');
+  const { address, isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage();
+  const { disconnect } = useDisconnect();
+  const { open } = useAppKit();
+  
   const [token, setToken] = useState('');
   const [points, setPoints] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -23,11 +27,21 @@ export default function Home() {
       
       if (storedToken && storedWallet) {
         setToken(storedToken);
-        setWalletAddress(storedWallet);
         fetchPoints(storedToken);
       }
     }
   }, []);
+
+  // Auto-authenticate when wallet is connected
+  useEffect(() => {
+    if (isConnected && address && !token) {
+      handleWalletAuth(address);
+    }
+    // If wallet disconnects, clear auth
+    if (!isConnected && token) {
+      handleLogout();
+    }
+  }, [isConnected, address]);
 
   const fetchPoints = async (authToken = token) => {
     if (!authToken) return;
@@ -47,44 +61,39 @@ export default function Home() {
     }
   };
 
-  const handleWalletConnect = async () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      alert('Please install MetaMask or another Web3 wallet to play!');
-      return;
-    }
+  const handleWalletConnect = () => {
+    open();
+  };
+
+  const handleWalletAuth = async (walletAddress) => {
+    if (!walletAddress) return;
 
     setLoading(true);
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      await provider.send('eth_requestAccounts', []);
-      const signer = await provider.getSigner();
-      const address = await signer.getAddress();
-      
       // Create authentication message
-      const message = `Please sign this message to authenticate with 2405 Game.\n\nWallet: ${address}\n\nThis will not cost any gas.`;
+      const message = `Please sign this message to authenticate with 2405 Game.\n\nWallet: ${walletAddress}\n\nThis will not cost any gas.`;
       
-      // Sign message
-      const signature = await signer.signMessage(message);
+      // Sign message using wagmi
+      const signature = await signMessageAsync({ message });
 
       // Authenticate with backend
       const response = await axios.post('/api/auth', {
-        walletAddress: address,
+        walletAddress,
         signature,
         message
       });
 
       setToken(response.data.token);
-      setWalletAddress(address);
       setPoints(response.data.user.points);
       setHighScore(response.data.user.highScore);
 
       // Store in localStorage
       localStorage.setItem('gameToken', response.data.token);
-      localStorage.setItem('walletAddress', address);
+      localStorage.setItem('walletAddress', walletAddress);
     } catch (err) {
-      console.error('Wallet connection error:', err);
-      if (err.code !== 4001) { // User rejected request
-        alert('Failed to connect wallet. Please try again.');
+      console.error('Wallet authentication error:', err);
+      if (err.code !== 4001 && err.code !== 'ACTION_REJECTED') {
+        alert('Failed to authenticate wallet. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -92,8 +101,8 @@ export default function Home() {
   };
 
   const handleLogout = () => {
+    disconnect();
     setToken('');
-    setWalletAddress('');
     setPoints(0);
     setHighScore(0);
     if (typeof window !== 'undefined') {
