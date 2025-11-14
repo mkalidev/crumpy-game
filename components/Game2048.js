@@ -59,15 +59,97 @@ export default function Game2048({ onScore }) {
     return newGrid;
   };
 
-  // Rotate grid 90 degrees clockwise
-  const rotateGrid = (gridToRotate) => {
-    const rotated = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
-    for (let i = 0; i < GRID_SIZE; i++) {
-      for (let j = 0; j < GRID_SIZE; j++) {
-        rotated[j][GRID_SIZE - 1 - i] = gridToRotate[i][j];
+  // Move tiles right
+  const moveRight = (gridToMove) => {
+    const newGrid = gridToMove.map(row => {
+      const filtered = row.filter(val => val !== 0);
+      const merged = [];
+      
+      for (let i = filtered.length - 1; i >= 0; i--) {
+        if (i > 0 && filtered[i] === filtered[i - 1]) {
+          merged.unshift(filtered[i] * 2);
+          i--; // Skip next tile
+        } else {
+          merged.unshift(filtered[i]);
+        }
+      }
+      
+      while (merged.length < GRID_SIZE) {
+        merged.unshift(0);
+      }
+      
+      return merged;
+    });
+    
+    return newGrid;
+  };
+
+  // Move tiles up
+  const moveUp = (gridToMove) => {
+    const newGrid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
+    
+    for (let col = 0; col < GRID_SIZE; col++) {
+      const column = [];
+      for (let row = 0; row < GRID_SIZE; row++) {
+        if (gridToMove[row][col] !== 0) {
+          column.push(gridToMove[row][col]);
+        }
+      }
+      
+      const merged = [];
+      for (let i = 0; i < column.length; i++) {
+        if (i < column.length - 1 && column[i] === column[i + 1]) {
+          merged.push(column[i] * 2);
+          i++; // Skip next tile
+        } else {
+          merged.push(column[i]);
+        }
+      }
+      
+      while (merged.length < GRID_SIZE) {
+        merged.push(0);
+      }
+      
+      for (let row = 0; row < GRID_SIZE; row++) {
+        newGrid[row][col] = merged[row];
       }
     }
-    return rotated;
+    
+    return newGrid;
+  };
+
+  // Move tiles down
+  const moveDown = (gridToMove) => {
+    const newGrid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
+    
+    for (let col = 0; col < GRID_SIZE; col++) {
+      const column = [];
+      for (let row = 0; row < GRID_SIZE; row++) {
+        if (gridToMove[row][col] !== 0) {
+          column.push(gridToMove[row][col]);
+        }
+      }
+      
+      const merged = [];
+      for (let i = column.length - 1; i >= 0; i--) {
+        if (i > 0 && column[i] === column[i - 1]) {
+          merged.unshift(column[i] * 2);
+          i--; // Skip next tile
+        } else {
+          merged.unshift(column[i]);
+        }
+      }
+      
+      while (merged.length < GRID_SIZE) {
+        merged.unshift(0);
+      }
+      
+      for (let row = 0; row < GRID_SIZE; row++) {
+        newGrid[row][col] = merged[row];
+      }
+    }
+    
+    return newGrid;
   };
 
   // Check if game is over
@@ -97,7 +179,7 @@ export default function Game2048({ onScore }) {
 
   // Move function for all directions
   const move = useCallback((direction) => {
-    if (gameOver) return;
+    if (gameOver || won) return;
 
     let newGrid = grid.map(row => [...row]);
     
@@ -106,13 +188,13 @@ export default function Game2048({ onScore }) {
         newGrid = moveLeft(newGrid);
         break;
       case 'right':
-        newGrid = rotateGrid(rotateGrid(moveLeft(rotateGrid(rotateGrid(newGrid)))));
+        newGrid = moveRight(newGrid);
         break;
       case 'up':
-        newGrid = rotateGrid(rotateGrid(rotateGrid(moveLeft(rotateGrid(newGrid)))));
+        newGrid = moveUp(newGrid);
         break;
       case 'down':
-        newGrid = rotateGrid(moveLeft(rotateGrid(rotateGrid(rotateGrid(newGrid)))));
+        newGrid = moveDown(newGrid);
         break;
       default:
         return;
@@ -225,8 +307,8 @@ export default function Game2048({ onScore }) {
   };
 
   return (
-    <div className="bg-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-700">
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+    <div className="bg-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-700 mt-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
         <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl py-4 px-6 text-center text-white w-full sm:w-auto shadow-lg">
           <div className="text-xs uppercase opacity-90">Score</div>
           <div className="text-2xl sm:text-3xl font-bold">{score.toLocaleString()}</div>
@@ -239,12 +321,12 @@ export default function Game2048({ onScore }) {
         </button>
       </div>
 
-      <div className="text-center mb-6 text-gray-300 text-sm px-2">
-        <p className="mb-2">Use arrow keys or swipe to move tiles. When two tiles with the same number touch, they merge into one!</p>
+      <div className="text-center mb-8 text-gray-300 text-sm px-2">
+        <p className="mb-2">Use arrow keys or click buttons to move tiles. When two tiles with the same number touch, they merge into one!</p>
         <p className="text-cyan-400 font-semibold"><strong>Goal: Reach 2405!</strong></p>
       </div>
 
-      <div className="relative w-full max-w-[500px] mx-auto mb-6 aspect-square bg-gray-800 rounded-xl p-2.5 border border-gray-700">
+      <div className="relative w-full max-w-[500px] mx-auto mb-8 aspect-square bg-gray-800 rounded-xl p-2.5 border-2 border-gray-700 shadow-inner">
         <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
           {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
             <div key={index} className="bg-gray-700/50 rounded-md border border-gray-600"></div>
