@@ -4,11 +4,17 @@ import { wagmiAdapter, projectId } from '@/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createAppKit } from '@reown/appkit/react';
 import { mainnet, arbitrum } from '@reown/appkit/networks';
-import React, { type ReactNode } from 'react';
+import React from 'react';
 import { cookieToInitialState, WagmiProvider } from 'wagmi';
 
 // Set up queryClient
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 if (!projectId) {
   throw new Error('Project ID is not defined');
@@ -23,7 +29,7 @@ const metadata = {
 };
 
 // Create the modal
-const modal = createAppKit({
+createAppKit({
   adapters: [wagmiAdapter],
   projectId,
   networks: [mainnet, arbitrum],
@@ -35,7 +41,9 @@ const modal = createAppKit({
 });
 
 function ContextProvider({ children, cookies }) {
-  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, cookies);
+  // Get cookies from document if available (client-side) or use provided cookies
+  const cookieString = cookies || (typeof document !== 'undefined' ? document.cookie : null);
+  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, cookieString);
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig} initialState={initialState}>
