@@ -1,6 +1,6 @@
-# 2405 Game
+# 2405 Game - Next.js Application
 
-A modern puzzle game inspired by 2048, with Web3 wallet authentication and a MongoDB-based points system.
+A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet authentication and a MongoDB-based points system.
 
 ## Features
 
@@ -9,6 +9,7 @@ A modern puzzle game inspired by 2048, with Web3 wallet authentication and a Mon
 - 💾 **Points System**: Earn and track points saved to MongoDB
 - 🏆 **Leaderboard**: Compete with other players
 - 🎨 **Clean UI**: Beautiful, modern interface with smooth animations
+- ⚡ **Next.js**: Built with Next.js for optimal performance
 
 ## Prerequisites
 
@@ -21,52 +22,36 @@ A modern puzzle game inspired by 2048, with Web3 wallet authentication and a Mon
 
 1. Install dependencies:
 ```bash
-npm run install-all
+npm install
 ```
 
-2. Set up MongoDB:
-   - Install MongoDB locally or use MongoDB Atlas (cloud)
-   - Update the `MONGO_URI` in `server/.env`
-
-3. Configure environment variables:
-   - Copy `server/.env.example` to `server/.env`
+2. Set up environment variables:
+   - Copy `.env.local.example` to `.env.local`
    - Update the values:
      ```
-     PORT=5000
      MONGO_URI=mongodb://localhost:27017/crumpy-game
+     # Or for MongoDB Atlas:
+     # MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/crumpy-game
      JWT_SECRET=your-secret-jwt-key-change-this-in-production
-     ```
-
-4. (Optional) Configure API URL for client:
-   - Create `client/.env`:
-     ```
-     REACT_APP_API_URL=http://localhost:5000
+     NEXTAUTH_URL=http://localhost:3000
      ```
 
 ## Running the Application
 
 ### Development Mode
 
-Run both server and client concurrently:
 ```bash
 npm run dev
 ```
 
-Or run them separately:
+The application will be available at http://localhost:3000
 
-**Server:**
+### Production Build
+
 ```bash
-npm run server
+npm run build
+npm start
 ```
-
-**Client:**
-```bash
-npm run client
-```
-
-The application will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
 
 ### Auto-Commit Script
 
@@ -82,19 +67,29 @@ npm run auto-commit
 
 ```
 crumpy-game/
-├── client/                 # React frontend
-│   ├── public/
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-├── server/                 # Express backend
-│   ├── index.js           # Server entry point
-│   └── package.json
-├── auto-commit.js         # Auto-commit script
-├── package.json           # Root package.json
-└── README.md
+├── components/          # React components
+│   ├── Game2048.js
+│   ├── WalletAuth.js
+│   ├── PointsDisplay.js
+│   └── Leaderboard.js
+├── lib/                 # Utility libraries
+│   ├── mongodb.js      # MongoDB connection
+│   ├── auth.js         # JWT authentication
+│   └── models/         # Mongoose models
+│       └── User.js
+├── pages/              # Next.js pages and API routes
+│   ├── api/            # API routes
+│   │   ├── auth.js
+│   │   ├── points.js
+│   │   └── leaderboard.js
+│   ├── index.js        # Home page
+│   └── _app.js         # App wrapper
+├── styles/             # Global styles
+│   ├── globals.css
+│   └── Home.module.css
+├── public/             # Static files
+├── next.config.js      # Next.js configuration
+└── package.json
 ```
 
 ## How to Play
@@ -108,6 +103,8 @@ crumpy-game/
 
 ## API Endpoints
 
+All API routes are in the `pages/api/` directory:
+
 - `POST /api/auth` - Authenticate with wallet
 - `GET /api/points` - Get user points and high score
 - `POST /api/points` - Update points after game
@@ -115,12 +112,12 @@ crumpy-game/
 
 ## Technologies Used
 
-- **Frontend**: React, Axios, Ethers.js
-- **Backend**: Node.js, Express, MongoDB, Mongoose
+- **Frontend**: Next.js, React
+- **Backend**: Next.js API Routes
+- **Database**: MongoDB, Mongoose
 - **Authentication**: JWT, Web3 wallet signatures
-- **Database**: MongoDB
+- **Blockchain**: Ethers.js
 
 ## License
 
 MIT
-
