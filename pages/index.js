@@ -10,6 +10,9 @@ export default function Home() {
     loading,
     address,
     isConnected,
+    contractRewards,
+    contractHighScore,
+    playerStats,
     handleWalletConnect,
     handleLogout,
     handleGameScore,
@@ -36,6 +39,9 @@ export default function Home() {
         highScore={highScore}
         loading={loading}
         isConnected={isConnected}
+        contractRewards={contractRewards}
+        contractHighScore={contractHighScore}
+        playerStats={playerStats}
         onWalletConnect={handleWalletConnect}
         onLogout={handleLogout}
         onGameScore={handleGameScore}

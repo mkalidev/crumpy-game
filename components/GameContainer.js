@@ -21,11 +21,14 @@ export default function GameContainer({
 
         {isAuthenticated && address && (
           <div className="max-w-3xl mx-auto mb-8 w-full">
-            <PointsDisplay
-              points={points}
+            <PointsDisplay 
+              points={points} 
               highScore={highScore}
               walletAddress={address}
               onLogout={onLogout}
+              contractRewards={contractRewards}
+              contractHighScore={contractHighScore}
+              playerStats={playerStats}
             />
           </div>
         )}
