@@ -1,0 +1,198 @@
+.game {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.scoreDisplay {
+  background: #bbada0;
+  border-radius: 10px;
+  padding: 15px 25px;
+  text-align: center;
+  color: white;
+}
+
+.scoreLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.scoreValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.resetButton {
+  background: #8f7a66;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.resetButton:hover {
+  background: #9f8a76;
+}
+
+.gameInstructions {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #776e65;
+  font-size: 0.9rem;
+}
+
+.gameInstructions p {
+  margin: 5px 0;
+}
+
+.gameBoard {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px;
+  aspect-ratio: 1;
+  background: #bbada0;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.gridBackground {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.gridCell {
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: 5px;
+}
+
+.tilesContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+.tile {
+  position: absolute;
+  width: calc(25% - 7.5px);
+  height: calc(25% - 7.5px);
+  border-radius: 5px;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s ease-in-out;
+  z-index: 10;
+}
+
+@media (max-width: 600px) {
+  .tile {
+    font-size: 1.5rem;
+  }
+  
+  .game {
+    padding: 20px;
+  }
+}
+
+.gameControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.controlRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controlButton {
+  background: #8f7a66;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-width: 80px;
+}
+
+.controlButton:hover {
+  background: #9f8a76;
+}
+
+.gameOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.gameOverMessage {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gameOverMessage h2 {
+  color: #776e65;
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.gameOverMessage p {
+  color: #776e65;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.playAgainButton {
+  background: #8f7a66;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.playAgainButton:hover {
+  background: #9f8a76;
+}
+
