@@ -68,6 +68,60 @@ npm run build
 npm start
 ```
 
+## Deployment to Vercel
+
+### Prerequisites
+
+1. A Vercel account (sign up at https://vercel.com)
+2. MongoDB connection string (MongoDB Atlas recommended for cloud)
+3. All environment variables configured
+
+### Deployment Steps
+
+1. **Connect your repository to Vercel:**
+   - Go to https://vercel.com/dashboard
+   - Click "New Project"
+   - Import your Git repository
+
+2. **Configure Environment Variables in Vercel:**
+   - Go to Project Settings → Environment Variables
+   - Add the following variables:
+     ```
+     MONGO_URI=your-mongodb-connection-string
+     JWT_SECRET=your-secret-jwt-key
+     NEXT_PUBLIC_PROJECT_ID=your-reown-project-id
+     NEXT_PUBLIC_CONTRACT_ADDRESS=0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885
+     ```
+
+3. **Important Vercel Configuration:**
+   - The `vercel.json` file is included for API route optimization
+   - API routes have a 30-second timeout limit
+   - MongoDB connection is optimized for serverless functions
+
+### Common Vercel Deployment Issues
+
+**Issue: API route `/api/auth` failing**
+- **Solution**: Ensure `MONGO_URI` is set in Vercel environment variables
+- Check Vercel function logs for detailed error messages
+- Verify MongoDB Atlas IP whitelist includes `0.0.0.0/0` or Vercel's IP ranges
+- Ensure MongoDB connection string includes proper authentication
+
+**Issue: MongoDB connection timeout**
+- **Solution**: The connection pool is optimized for serverless (max 10 connections)
+- If using MongoDB Atlas, ensure your cluster allows connections from anywhere
+- Check that your connection string format is correct
+
+**Issue: CORS errors**
+- **Solution**: CORS headers are included in the API routes
+- If issues persist, check your domain configuration
+
+### Vercel Environment Variables Checklist
+
+- ✅ `MONGO_URI` or `MONGODB_URI` - MongoDB connection string
+- ✅ `JWT_SECRET` - Secret key for JWT tokens (use a strong random string)
+- ✅ `NEXT_PUBLIC_PROJECT_ID` - Reown AppKit Project ID
+- ✅ `NEXT_PUBLIC_CONTRACT_ADDRESS` - Smart contract address (optional, defaults to hardcoded value)
+
 ### Auto-Commit Script
 
 The auto-commit script automatically commits changes every 30 seconds with file-based commit messages:

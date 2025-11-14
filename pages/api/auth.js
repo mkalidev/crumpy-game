@@ -73,15 +73,14 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('Auth error:', err);
-    
+
     // Provide more detailed error information in development
-    const errorMessage = process.env.NODE_ENV === 'development' 
-      ? err.message 
-      : 'Authentication failed';
-    
-    return res.status(500).json({ 
+    const errorMessage =
+      process.env.NODE_ENV === 'development' ? err.message : 'Authentication failed';
+
+    return res.status(500).json({
       error: errorMessage,
-      ...(process.env.NODE_ENV === 'development' && { details: err.stack })
+      ...(process.env.NODE_ENV === 'development' && { details: err.stack }),
     });
   }
 }
