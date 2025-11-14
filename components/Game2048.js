@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import styles from './Game2048.module.css';
 
 const GRID_SIZE = 4;
 const WINNING_TILE = 2405; // Game goal - reach 2405!
