@@ -39,7 +39,7 @@ export default function Leaderboard() {
           {leaderboard.map((user, index) => (
             <div 
               key={user._id || index} 
-              className="grid grid-cols-[35px_1fr_auto] sm:grid-cols-[40px_1fr_auto] items-center gap-3 sm:gap-4 p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg transition-all hover:translate-x-1 hover:border-gray-600 hover:bg-gray-750"
+              className="grid grid-cols-[35px_1fr_auto] sm:grid-cols-[40px_1fr_auto] items-center gap-3 sm:gap-4 p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg transition-all hover:translate-x-1 hover:border-gray-600 hover:bg-gray-700"
             >
               <div className="font-bold text-gray-300 text-base sm:text-lg text-center">
                 {index === 0 && '🥇'}
