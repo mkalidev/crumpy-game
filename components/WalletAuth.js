@@ -1,6 +1,6 @@
 export default function WalletAuth({ onConnect, loading }) {
   return (
-    <div className="flex justify-center items-center min-h-[400px] border-b-2 border-gray-300">
+    <div className="flex justify-center items-center min-h-[400px] border-b-2 border-gray-300 bg-">
       <div className="bg-white rounded-3xl p-10 shadow-2xl text-center max-w-md w-full">
         <div className="text-7xl mb-5">🔐</div>
         <h2 className="text-[#333] mb-4 text-3xl font-bold">Connect Your Wallet</h2>
