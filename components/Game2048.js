@@ -223,35 +223,38 @@ export default function Game2048({ onScore }) {
   };
 
   return (
-    <div className={styles.game}>
-      <div className={styles.gameHeader}>
-        <div className={styles.scoreDisplay}>
-          <div className={styles.scoreLabel}>Score</div>
-          <div className={styles.scoreValue}>{score.toLocaleString()}</div>
+    <div className="bg-white rounded-3xl p-8 shadow-2xl">
+      <div className="flex justify-between items-center mb-5">
+        <div className="bg-[#bbada0] rounded-xl py-4 px-6 text-center text-white">
+          <div className="text-xs uppercase opacity-90">Score</div>
+          <div className="text-3xl font-bold">{score.toLocaleString()}</div>
         </div>
-        <button className={styles.resetButton} onClick={resetGame}>
+        <button 
+          className="bg-[#8f7a66] text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-colors hover:bg-[#9f8a76]" 
+          onClick={resetGame}
+        >
           New Game
         </button>
       </div>
 
-      <div className={styles.gameInstructions}>
+      <div className="text-center mb-5 text-[#776e65] text-sm">
         <p>Use arrow keys or swipe to move tiles. When two tiles with the same number touch, they merge into one!</p>
-        <p><strong>Goal: Reach 2405!</strong></p>
+        <p className="mt-1"><strong>Goal: Reach 2405!</strong></p>
       </div>
 
-      <div className={styles.gameBoard}>
-        <div className={styles.gridBackground}>
+      <div className="relative w-full max-w-[500px] mx-auto mb-5 aspect-square bg-[#bbada0] rounded-xl p-2.5">
+        <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
           {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
-            <div key={index} className={styles.gridCell}></div>
+            <div key={index} className="bg-[rgba(238,228,218,0.35)] rounded-md"></div>
           ))}
         </div>
-        <div className={styles.tilesContainer}>
+        <div className="absolute top-2.5 left-2.5 right-2.5 bottom-2.5">
           {grid.map((row, i) =>
             row.map((value, j) =>
               value !== 0 && (
                 <div
                   key={`${i}-${j}`}
-                  className={styles.tile}
+                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-md text-3xl sm:text-2xl font-bold flex items-center justify-center transition-all duration-150 z-10"
                   style={{
                     left: `${j * (100 / GRID_SIZE)}%`,
                     top: `${i * (100 / GRID_SIZE)}%`,
@@ -267,30 +270,53 @@ export default function Game2048({ onScore }) {
         </div>
       </div>
 
-      <div className={styles.gameControls}>
-        <button className={styles.controlButton} onClick={() => move('left')}>← Left</button>
-        <div className={styles.controlRow}>
-          <button className={styles.controlButton} onClick={() => move('up')}>↑ Up</button>
-          <button className={styles.controlButton} onClick={() => move('down')}>↓ Down</button>
+      <div className="flex justify-center items-center gap-2.5 flex-wrap">
+        <button 
+          className="bg-[#8f7a66] text-white border-none py-3 px-5 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[80px]" 
+          onClick={() => move('left')}
+        >
+          ← Left
+        </button>
+        <div className="flex flex-col gap-2.5">
+          <button 
+            className="bg-[#8f7a66] text-white border-none py-3 px-5 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[80px]" 
+            onClick={() => move('up')}
+          >
+            ↑ Up
+          </button>
+          <button 
+            className="bg-[#8f7a66] text-white border-none py-3 px-5 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[80px]" 
+            onClick={() => move('down')}
+          >
+            ↓ Down
+          </button>
         </div>
-        <button className={styles.controlButton} onClick={() => move('right')}>Right →</button>
+        <button 
+          className="bg-[#8f7a66] text-white border-none py-3 px-5 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[80px]" 
+          onClick={() => move('right')}
+        >
+          Right →
+        </button>
       </div>
 
       {(gameOver || won) && (
-        <div className={styles.gameOverlay}>
-          <div className={styles.gameOverMessage}>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]">
+          <div className="bg-white rounded-3xl p-10 text-center max-w-md shadow-2xl">
             {won ? (
               <>
-                <h2>🎉 You Won!</h2>
-                <p>You reached 2405! Amazing!</p>
+                <h2 className="text-[#776e65] mb-4 text-4xl font-bold">🎉 You Won!</h2>
+                <p className="text-[#776e65] mb-6 text-lg">You reached 2405! Amazing!</p>
               </>
             ) : (
               <>
-                <h2>Game Over!</h2>
-                <p>Final Score: {score.toLocaleString()}</p>
+                <h2 className="text-[#776e65] mb-4 text-4xl font-bold">Game Over!</h2>
+                <p className="text-[#776e65] mb-6 text-lg">Final Score: {score.toLocaleString()}</p>
               </>
             )}
-            <button className={styles.playAgainButton} onClick={resetGame}>
+            <button 
+              className="bg-[#8f7a66] text-white border-none py-4 px-10 rounded-xl text-lg font-bold cursor-pointer transition-colors hover:bg-[#9f8a76]" 
+              onClick={resetGame}
+            >
               Play Again
             </button>
           </div>
