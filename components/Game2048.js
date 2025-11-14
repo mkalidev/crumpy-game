@@ -195,31 +195,33 @@ export default function Game2048({ onScore }) {
     setWon(false);
   };
 
-  // Get tile color based on value
+  // Get tile color based on value - Dark theme colors
   const getTileColor = (value) => {
-    if (value === 0) return '#cdc1b4';
+    if (value === 0) return '#2d3748';
     
     const colors = {
-      2: '#eee4da',
-      4: '#ede0c8',
-      8: '#f2b179',
-      16: '#f59563',
-      32: '#f67c5f',
-      64: '#f65e3b',
-      128: '#edcf72',
-      256: '#edcc61',
-      512: '#edc850',
-      1024: '#edc53f',
-      2048: '#edc22e',
-      2405: '#ff6b35', // Special color for winning tile
+      2: '#374151',
+      4: '#4b5563',
+      8: '#6366f1',
+      16: '#8b5cf6',
+      32: '#a855f7',
+      64: '#c084fc',
+      128: '#06b6d4',
+      256: '#22d3ee',
+      512: '#38bdf8',
+      1024: '#60a5fa',
+      2048: '#3b82f6',
+      2405: '#fbbf24', // Special golden color for winning tile
     };
     
-    return colors[value] || '#3c3a32';
+    return colors[value] || '#1e293b';
   };
 
-  // Get text color based on value
+  // Get text color based on value - Dark theme
   const getTextColor = (value) => {
-    return value <= 4 ? '#776e65' : '#f9f6f2';
+    if (value === 0) return 'transparent';
+    if (value <= 4) return '#e2e8f0';
+    return '#ffffff';
   };
 
   return (
