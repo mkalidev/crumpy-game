@@ -26,15 +26,21 @@ npm install
 ```
 
 2. Set up environment variables:
-   - Copy `.env.local.example` to `.env.local`
-   - Update the values:
+   - Create `.env.local` file in the root directory
+   - Add the following variables:
      ```
      MONGO_URI=mongodb://localhost:27017/crumpy-game
      # Or for MongoDB Atlas:
      # MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/crumpy-game
      JWT_SECRET=your-secret-jwt-key-change-this-in-production
-     NEXTAUTH_URL=http://localhost:3000
+     NEXT_PUBLIC_PROJECT_ID=your-reown-project-id
      ```
+   
+   **Getting your Reown Project ID:**
+   - Visit https://dashboard.reown.com
+   - Create a new project or use an existing one
+   - Copy your Project ID
+   - Add it to `.env.local` as `NEXT_PUBLIC_PROJECT_ID`
 
 ## Running the Application
 
