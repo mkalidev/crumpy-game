@@ -1,0 +1,64 @@
+.leaderboard {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  height: fit-content;
+}
+
+.leaderboardTitle {
+  color: #776e65;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.leaderboardLoading,
+.leaderboardEmpty {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+.leaderboardList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leaderboardItem {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: #faf8ef;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.leaderboardItem:hover {
+  transform: translateX(5px);
+}
+
+.leaderboardRank {
+  font-weight: bold;
+  color: #776e65;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.leaderboardAddress {
+  font-family: monospace;
+  color: #776e65;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leaderboardScore {
+  font-weight: bold;
+  color: #8f7a66;
+  font-size: 1rem;
+}
+
