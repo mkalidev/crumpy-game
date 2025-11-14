@@ -34,13 +34,14 @@ export default function Home() {
 
   // Auto-authenticate when wallet is connected
   useEffect(() => {
-    if (isConnected && address && !token) {
+    if (isConnected && address && !token && !loading) {
       handleWalletAuth(address);
     }
     // If wallet disconnects, clear auth
     if (!isConnected && token) {
       handleLogout();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, address]);
 
   const fetchPoints = async (authToken = token) => {
