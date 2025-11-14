@@ -132,13 +132,28 @@ All API routes are in the `pages/api/` directory:
 - `POST /api/points` - Update points after game
 - `GET /api/leaderboard` - Get top players
 
+## Component Architecture
+
+The application is built with a clean, modular component structure:
+
+- **`pages/index.js`**: Main page component that orchestrates the app
+- **`components/AuthHandler.js`**: Custom hook managing all authentication logic
+- **`components/GameContainer.js`**: Main container component for game UI
+- **`components/GameLayout.js`**: Layout component organizing game and leaderboard
+- **`components/GameHeader.js`**: Page header with title
+- **`components/Game2048.js`**: Core game component
+- **`components/WalletAuth.js`**: Wallet connection UI
+- **`components/PointsDisplay.js`**: User stats display
+- **`components/Leaderboard.js`**: Top players display
+
 ## Technologies Used
 
-- **Frontend**: Next.js, React
+- **Frontend**: Next.js, React, Tailwind CSS
 - **Backend**: Next.js API Routes
 - **Database**: MongoDB, Mongoose
-- **Authentication**: JWT, Web3 wallet signatures
-- **Blockchain**: Ethers.js
+- **Authentication**: JWT, Reown AppKit (WalletConnect), Wagmi
+- **Blockchain**: Wagmi, Viem
+- **Wallet Integration**: Reown AppKit (supports MetaMask, WalletConnect, Coinbase, etc.)
 
 ## License
 
