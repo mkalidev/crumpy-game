@@ -23,9 +23,9 @@ const commitChanges = () => {
   }
 };
 
-// Commit immediately, then every 30 seconds
+// Commit immediately, then every 3 seconds
 commitChanges();
-setInterval(commitChanges, 30000);
+setInterval(commitChanges, 3000);
 
-console.log('Auto-commit script running. Committing every 30 seconds...');
+console.log('Auto-commit script running. Committing every 3 seconds...');
 
