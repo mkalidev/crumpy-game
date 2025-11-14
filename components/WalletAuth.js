@@ -1,4 +1,4 @@
-export default function WalletAuth({ onConnect, loading }) {
+export default function WalletAuth({ onConnect, loading, isConnected }) {
   return (
     <div className="flex justify-center items-center min-h-[400px] py-8">
       <div className="bg-gray-900 border border-gray-700 rounded-3xl p-10 shadow-2xl text-center max-w-md w-full mx-4">
@@ -12,10 +12,10 @@ export default function WalletAuth({ onConnect, loading }) {
           onClick={onConnect}
           disabled={loading}
         >
-          {loading ? 'Connecting...' : 'Connect Wallet'}
+          {loading ? 'Signing message...' : isConnected ? 'Sign Message' : 'Connect Wallet'}
         </button>
         <p className="mt-6 text-sm text-gray-500">
-          You'll need MetaMask or another Web3 wallet installed in your browser.
+          Connect using MetaMask, WalletConnect, or any supported Web3 wallet.
         </p>
       </div>
     </div>
