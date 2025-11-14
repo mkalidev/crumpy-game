@@ -1,0 +1,67 @@
+.walletAuth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.authCard {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.authIcon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.authCard h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.authDescription {
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.connectButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.connectButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.connectButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.connectButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.authNote {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #999;
+}
+
