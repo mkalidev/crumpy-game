@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './Leaderboard.module.css';
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -29,24 +28,31 @@ export default function Leaderboard() {
   };
 
   return (
-    <div className={styles.leaderboard}>
-      <h2 className={styles.leaderboardTitle}>🏆 Leaderboard</h2>
+    <div className="bg-white rounded-3xl p-6 shadow-2xl h-fit">
+      <h2 className="text-[#776e65] mb-5 text-2xl font-bold text-center">🏆 Leaderboard</h2>
       {loading ? (
-        <div className={styles.leaderboardLoading}>Loading...</div>
+        <div className="text-center text-[#999] py-5">Loading...</div>
       ) : leaderboard.length === 0 ? (
-        <div className={styles.leaderboardEmpty}>No scores yet. Be the first!</div>
+        <div className="text-center text-[#999] py-5">No scores yet. Be the first!</div>
       ) : (
-        <div className={styles.leaderboardList}>
+        <div className="flex flex-col gap-2.5">
           {leaderboard.map((user, index) => (
-            <div key={user._id || index} className={styles.leaderboardItem}>
-              <div className={styles.leaderboardRank}>
+            <div 
+              key={user._id || index} 
+              className="grid grid-cols-[40px_1fr_auto] items-center gap-4 p-3 bg-[#faf8ef] rounded-lg transition-transform hover:translate-x-1"
+            >
+              <div className="font-bold text-[#776e65] text-lg text-center">
                 {index === 0 && '🥇'}
                 {index === 1 && '🥈'}
                 {index === 2 && '🥉'}
                 {index > 2 && `#${index + 1}`}
               </div>
-              <div className={styles.leaderboardAddress}>{formatAddress(user.walletAddress)}</div>
-              <div className={styles.leaderboardScore}>{user.highScore.toLocaleString()}</div>
+              <div className="font-mono text-[#776e65] text-sm overflow-hidden text-ellipsis">
+                {formatAddress(user.walletAddress)}
+              </div>
+              <div className="font-bold text-[#8f7a66] text-base">
+                {user.highScore.toLocaleString()}
+              </div>
             </div>
           ))}
         </div>
