@@ -254,7 +254,7 @@ export default function Game2048({ onScore }) {
               value !== 0 && (
                 <div
                   key={`${i}-${j}`}
-                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-md text-3xl sm:text-2xl font-bold flex items-center justify-center transition-all duration-150 z-10"
+                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-md text-xl sm:text-2xl lg:text-3xl font-bold flex items-center justify-center transition-all duration-150 z-10"
                   style={{
                     left: `${j * (100 / GRID_SIZE)}%`,
                     top: `${i * (100 / GRID_SIZE)}%`,
