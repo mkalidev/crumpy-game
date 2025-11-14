@@ -1,22 +1,20 @@
-import styles from './WalletAuth.module.css';
-
 export default function WalletAuth({ onConnect, loading }) {
   return (
-    <div className={styles.walletAuth}>
-      <div className={styles.authCard}>
-        <div className={styles.authIcon}>🔐</div>
-        <h2>Connect Your Wallet</h2>
-        <p className={styles.authDescription}>
+    <div className="flex justify-center items-center min-h-[400px]">
+      <div className="bg-white rounded-3xl p-10 shadow-2xl text-center max-w-md w-full">
+        <div className="text-7xl mb-5">🔐</div>
+        <h2 className="text-[#333] mb-4 text-3xl font-bold">Connect Your Wallet</h2>
+        <p className="text-[#666] mb-8 leading-relaxed">
           Connect your Web3 wallet to play 2405 Game and earn points!
         </p>
         <button 
-          className={styles.connectButton} 
+          className="bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white border-none py-4 px-10 rounded-full text-lg font-bold cursor-pointer transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed" 
           onClick={onConnect}
           disabled={loading}
         >
           {loading ? 'Connecting...' : 'Connect Wallet'}
         </button>
-        <p className={styles.authNote}>
+        <p className="mt-5 text-sm text-[#999]">
           You'll need MetaMask or another Web3 wallet installed in your browser.
         </p>
       </div>
