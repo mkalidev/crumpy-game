@@ -1,15 +1,17 @@
 # 2405 Game - Next.js Application
 
-A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet authentication and a MongoDB-based points system.
+A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet authentication and a MongoDB-based points system. Built with a clean component architecture and dark theme design.
 
 ## Features
 
 - 🎮 **2405 Game**: Play the classic sliding tile puzzle game with the goal of reaching 2405
-- 🔐 **Wallet Authentication**: Connect your Web3 wallet using Reown AppKit (formerly WalletConnect) - supports MetaMask, WalletConnect, and many more
+- 🔐 **Wallet Authentication**: Connect your Web3 wallet using Reown AppKit (formerly WalletConnect) - supports MetaMask, WalletConnect, Coinbase, and many more
 - 💾 **Points System**: Earn and track points saved to MongoDB
-- 🏆 **Leaderboard**: Compete with other players
-- 🎨 **Clean UI**: Beautiful, modern interface with smooth animations
-- ⚡ **Next.js**: Built with Next.js for optimal performance
+- 🏆 **Leaderboard**: Compete with other players in real-time
+- 🎨 **Dark Theme UI**: Beautiful, modern dark-themed interface with smooth animations
+- ⚡ **Next.js**: Built with Next.js for optimal performance and SSR
+- 📦 **Component Architecture**: Clean, modular component structure for easy maintenance
+- 🤖 **Auto-Commit**: Automatic git commits with file-based commit messages
 
 ## Prerequisites
 
@@ -61,10 +63,16 @@ npm start
 
 ### Auto-Commit Script
 
-The auto-commit script automatically commits changes every 30 seconds:
+The auto-commit script automatically commits changes every 30 seconds with file-based commit messages:
 
 ```bash
 npm run auto-commit
+```
+
+The script will detect changed files and create commit messages in the format:
+```
+- updated - filename1.js
+- updated - filename2.js
 ```
 
 **Note:** Make sure Git is initialized and configured before using the auto-commit script.
@@ -74,10 +82,18 @@ npm run auto-commit
 ```
 crumpy-game/
 ├── components/          # React components
-│   ├── Game2048.js
-│   ├── WalletAuth.js
-│   ├── PointsDisplay.js
-│   └── Leaderboard.js
+│   ├── Game2048.js          # Main game component
+│   ├── GameHeader.js        # Page header/title
+│   ├── GameLayout.js        # Layout for game + leaderboard
+│   ├── GameContainer.js     # Main game container
+│   ├── AuthHandler.js       # Custom hook for authentication logic
+│   ├── WalletAuth.js        # Wallet connection component
+│   ├── PointsDisplay.js     # User points and wallet info display
+│   └── Leaderboard.js       # Top players leaderboard
+├── config/             # Configuration files
+│   └── index.js        # Wagmi/Reown AppKit configuration
+├── context/            # React context providers
+│   └── index.js        # Wagmi and QueryClient providers
 ├── lib/                 # Utility libraries
 │   ├── mongodb.js      # MongoDB connection
 │   ├── auth.js         # JWT authentication
@@ -85,15 +101,15 @@ crumpy-game/
 │       └── User.js
 ├── pages/              # Next.js pages and API routes
 │   ├── api/            # API routes
-│   │   ├── auth.js
-│   │   ├── points.js
-│   │   └── leaderboard.js
-│   ├── index.js        # Home page
-│   └── _app.js         # App wrapper
+│   │   ├── auth.js     # Wallet authentication endpoint
+│   │   ├── points.js   # Points management endpoint
+│   │   └── leaderboard.js  # Leaderboard endpoint
+│   ├── index.js        # Home page (main route)
+│   └── _app.js         # App wrapper with providers
 ├── styles/             # Global styles
-│   ├── globals.css
-│   └── Home.module.css
+│   └── globals.css     # Global styles with Tailwind CSS
 ├── public/             # Static files
+├── auto-commit.js      # Auto-commit script
 ├── next.config.js      # Next.js configuration
 └── package.json
 ```
