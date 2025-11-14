@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAccount, useSignMessage, useDisconnect } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
+import { useReadContract } from 'wagmi';
+import { contractABI, contractAddress } from '@/constants';
 import axios from 'axios';
 
 export default function useAuthHandler() {
@@ -13,6 +15,8 @@ export default function useAuthHandler() {
   const [points, setPoints] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [contractRewards, setContractRewards] = useState(0);
+  const [contractHighScore, setContractHighScore] = useState(0);
 
   useEffect(() => {
     // Check for stored auth token on mount
@@ -27,6 +31,25 @@ export default function useAuthHandler() {
     }
   }, []);
 
+  // Get player stats from contract
+  const { data: playerStats, refetch: refetchPlayerStats } = useReadContract({
+    address: contractAddress,
+    abi: contractABI,
+    functionName: 'getPlayerStats',
+    args: address ? [address] : undefined,
+    query: {
+      enabled: !!address && isConnected,
+    },
+  });
+
+  // Update contract stats when playerStats changes
+  useEffect(() => {
+    if (playerStats) {
+      setContractHighScore(Number(playerStats[1] || 0));
+      setContractRewards(Number(playerStats[5] || 0)); // unclaimedRewards
+    }
+  }, [playerStats]);
+
   // Auto-authenticate when wallet is connected
   useEffect(() => {
     if (isConnected && address && !token && !loading) {
@@ -38,6 +61,13 @@ export default function useAuthHandler() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, address]);
+
+  // Refetch contract stats when address changes
+  useEffect(() => {
+    if (address && isConnected) {
+      refetchPlayerStats();
+    }
+  }, [address, isConnected, refetchPlayerStats]);
 
   const fetchPoints = async (authToken = token) => {
     if (!authToken) return;
