@@ -302,21 +302,21 @@ export default function Game2048({ onScore }) {
       </div>
 
       {(gameOver || won) && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]">
-          <div className="bg-white rounded-3xl p-10 text-center max-w-md shadow-2xl">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[1000]">
+          <div className="bg-gray-900 border border-gray-700 rounded-3xl p-10 text-center max-w-md shadow-2xl">
             {won ? (
               <>
-                <h2 className="text-[#776e65] mb-4 text-4xl font-bold">🎉 You Won!</h2>
-                <p className="text-[#776e65] mb-6 text-lg">You reached 2405! Amazing!</p>
+                <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4 text-4xl font-bold">🎉 You Won!</h2>
+                <p className="text-gray-300 mb-6 text-lg">You reached 2405! Amazing!</p>
               </>
             ) : (
               <>
-                <h2 className="text-[#776e65] mb-4 text-4xl font-bold">Game Over!</h2>
-                <p className="text-[#776e65] mb-6 text-lg">Final Score: {score.toLocaleString()}</p>
+                <h2 className="text-red-400 mb-4 text-4xl font-bold">Game Over!</h2>
+                <p className="text-gray-300 mb-6 text-lg">Final Score: {score.toLocaleString()}</p>
               </>
             )}
             <button 
-              className="bg-[#8f7a66] text-white border-none py-4 px-10 rounded-xl text-lg font-bold cursor-pointer transition-colors hover:bg-[#9f8a76]" 
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none py-4 px-10 rounded-xl text-lg font-bold cursor-pointer transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-xl" 
               onClick={resetGame}
             >
               Play Again
