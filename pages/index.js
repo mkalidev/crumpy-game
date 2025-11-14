@@ -131,10 +131,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <header className={styles.header}>
-            <h1 className={styles.title}>2405 Game</h1>
+      <main className="min-h-screen p-5">
+        <div className="max-w-7xl mx-auto">
+          <header className="text-center mb-8 text-white">
+            <h1 className="text-6xl font-bold mb-5 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-lg">
+              2405 Game
+            </h1>
             {walletAddress && (
               <PointsDisplay 
                 points={points} 
@@ -148,7 +150,7 @@ export default function Home() {
           {!token ? (
             <WalletAuth onConnect={handleWalletConnect} loading={loading} />
           ) : (
-            <div className={styles.gameContainer}>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8">
               <Game2048 onScore={handleGameScore} />
               <Leaderboard />
             </div>
