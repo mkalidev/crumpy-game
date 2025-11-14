@@ -28,29 +28,29 @@ export default function Leaderboard() {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-2xl h-fit">
-      <h2 className="text-[#776e65] mb-5 text-2xl font-bold text-center">🏆 Leaderboard</h2>
+    <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl h-fit">
+      <h2 className="text-[#776e65] mb-5 text-xl sm:text-2xl font-bold text-center">🏆 Leaderboard</h2>
       {loading ? (
         <div className="text-center text-[#999] py-5">Loading...</div>
       ) : leaderboard.length === 0 ? (
         <div className="text-center text-[#999] py-5">No scores yet. Be the first!</div>
       ) : (
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-2">
           {leaderboard.map((user, index) => (
             <div 
               key={user._id || index} 
-              className="grid grid-cols-[40px_1fr_auto] items-center gap-4 p-3 bg-[#faf8ef] rounded-lg transition-transform hover:translate-x-1"
+              className="grid grid-cols-[35px_1fr_auto] sm:grid-cols-[40px_1fr_auto] items-center gap-3 sm:gap-4 p-2.5 sm:p-3 bg-[#faf8ef] rounded-lg transition-transform hover:translate-x-1"
             >
-              <div className="font-bold text-[#776e65] text-lg text-center">
+              <div className="font-bold text-[#776e65] text-base sm:text-lg text-center">
                 {index === 0 && '🥇'}
                 {index === 1 && '🥈'}
                 {index === 2 && '🥉'}
                 {index > 2 && `#${index + 1}`}
               </div>
-              <div className="font-mono text-[#776e65] text-sm overflow-hidden text-ellipsis">
+              <div className="font-mono text-[#776e65] text-xs sm:text-sm overflow-hidden text-ellipsis">
                 {formatAddress(user.walletAddress)}
               </div>
-              <div className="font-bold text-[#8f7a66] text-base">
+              <div className="font-bold text-[#8f7a66] text-sm sm:text-base">
                 {user.highScore.toLocaleString()}
               </div>
             </div>
