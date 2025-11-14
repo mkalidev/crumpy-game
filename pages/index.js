@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { useAccount, useSignMessage, useDisconnect } from 'wagmi';
 import axios from 'axios';
 import Head from 'next/head';
 import Game2048 from '../components/Game2048';
 import WalletAuth from '../components/WalletAuth';
 import PointsDisplay from '../components/PointsDisplay';
 import Leaderboard from '../components/Leaderboard';
+import { useAppKit } from '@reown/appkit/react';
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState('');
