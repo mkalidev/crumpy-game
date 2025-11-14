@@ -16,11 +16,11 @@ export default function GameContainer({
 }) {
   return (
     <main className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col">
         <GameHeader />
         
         {isAuthenticated && address && (
-          <div className="max-w-3xl mx-auto mb-8">
+          <div className="max-w-3xl mx-auto mb-8 w-full">
             <PointsDisplay 
               points={points} 
               highScore={highScore}
@@ -37,7 +37,9 @@ export default function GameContainer({
             isConnected={isConnected} 
           />
         ) : (
-          <GameLayout onGameScore={onGameScore} />
+          <div className="flex-1 flex items-start justify-center">
+            <GameLayout onGameScore={onGameScore} />
+          </div>
         )}
       </div>
     </main>

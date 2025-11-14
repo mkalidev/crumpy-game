@@ -329,7 +329,7 @@ export default function Game2048({ onScore }) {
       <div className="relative w-full max-w-[500px] mx-auto mb-8 aspect-square bg-gray-800 rounded-xl p-2.5 border-2 border-gray-700 shadow-inner">
         <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
           {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
-            <div key={index} className="bg-gray-700/50 rounded-md border border-gray-600"></div>
+            <div key={index} className="bg-gray-700/40 rounded-lg border border-gray-600/50"></div>
           ))}
         </div>
         <div className="absolute top-2.5 left-2.5 right-2.5 bottom-2.5">
@@ -337,13 +337,14 @@ export default function Game2048({ onScore }) {
             row.map((value, j) =>
               value !== 0 && (
                 <div
-                  key={`${i}-${j}`}
-                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-md text-xl sm:text-2xl lg:text-3xl font-bold flex items-center justify-center transition-all duration-150 z-10"
+                  key={`${i}-${j}-${value}`}
+                  className="absolute w-[calc(25%-7.5px)] h-[calc(25%-7.5px)] rounded-lg text-xl sm:text-2xl lg:text-3xl font-bold flex items-center justify-center transition-all duration-200 ease-out z-10 shadow-lg"
                   style={{
                     left: `${j * (100 / GRID_SIZE)}%`,
                     top: `${i * (100 / GRID_SIZE)}%`,
                     backgroundColor: getTileColor(value),
                     color: getTextColor(value),
+                    transform: 'scale(1)',
                   }}
                 >
                   {value}
@@ -354,30 +355,34 @@ export default function Game2048({ onScore }) {
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-2 flex-wrap">
+      <div className="flex justify-center items-center gap-3 flex-wrap">
         <button 
-          className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
+          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
           onClick={() => move('left')}
+          disabled={gameOver || won}
         >
           ← Left
         </button>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <button 
-            className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
+            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
             onClick={() => move('up')}
+            disabled={gameOver || won}
           >
             ↑ Up
           </button>
           <button 
-            className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
+            className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
             onClick={() => move('down')}
+            disabled={gameOver || won}
           >
             ↓ Down
           </button>
         </div>
         <button 
-          className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
+          className="bg-gray-700 text-white border-2 border-gray-600 py-3 px-5 rounded-xl text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-cyan-500 hover:shadow-xl hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[90px]" 
           onClick={() => move('right')}
+          disabled={gameOver || won}
         >
           Right →
         </button>
