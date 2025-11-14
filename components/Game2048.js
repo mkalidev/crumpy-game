@@ -223,26 +223,26 @@ export default function Game2048({ onScore }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-2xl">
-      <div className="flex justify-between items-center mb-5">
-        <div className="bg-[#bbada0] rounded-xl py-4 px-6 text-center text-white">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+        <div className="bg-[#bbada0] rounded-xl py-4 px-6 text-center text-white w-full sm:w-auto">
           <div className="text-xs uppercase opacity-90">Score</div>
-          <div className="text-3xl font-bold">{score.toLocaleString()}</div>
+          <div className="text-2xl sm:text-3xl font-bold">{score.toLocaleString()}</div>
         </div>
         <button 
-          className="bg-[#8f7a66] text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-colors hover:bg-[#9f8a76]" 
+          className="bg-[#8f7a66] text-white border-none py-3 px-6 rounded-xl text-base font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] w-full sm:w-auto" 
           onClick={resetGame}
         >
           New Game
         </button>
       </div>
 
-      <div className="text-center mb-5 text-[#776e65] text-sm">
-        <p>Use arrow keys or swipe to move tiles. When two tiles with the same number touch, they merge into one!</p>
-        <p className="mt-1"><strong>Goal: Reach 2405!</strong></p>
+      <div className="text-center mb-6 text-[#776e65] text-sm px-2">
+        <p className="mb-2">Use arrow keys or swipe to move tiles. When two tiles with the same number touch, they merge into one!</p>
+        <p><strong>Goal: Reach 2405!</strong></p>
       </div>
 
-      <div className="relative w-full max-w-[500px] mx-auto mb-5 aspect-square bg-[#bbada0] rounded-xl p-2.5">
+      <div className="relative w-full max-w-[500px] mx-auto mb-6 aspect-square bg-[#bbada0] rounded-xl p-2.5">
         <div className="grid grid-cols-4 grid-rows-4 gap-2.5 w-full h-full">
           {Array(GRID_SIZE * GRID_SIZE).fill(null).map((_, index) => (
             <div key={index} className="bg-[rgba(238,228,218,0.35)] rounded-md"></div>
