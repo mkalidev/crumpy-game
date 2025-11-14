@@ -6,11 +6,12 @@ A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet
 
 - 🎮 **2405 Game**: Play the classic sliding tile puzzle game with the goal of reaching 2405
 - 🔐 **Wallet Authentication**: Connect your Web3 wallet using Reown AppKit (formerly WalletConnect) - supports MetaMask, WalletConnect, Coinbase, and many more
-- 💾 **Points System**: Earn and track points saved to MongoDB
-- 🏆 **Leaderboard**: Compete with other players in real-time
+- 💾 **Dual Points System**: Earn points saved to MongoDB and on-chain rewards via smart contract
+- 🏆 **Leaderboard**: Compete with other players in real-time (both on-chain and off-chain)
 - 🎨 **Dark Theme UI**: Beautiful, modern dark-themed interface with smooth animations
 - ⚡ **Next.js**: Built with Next.js for optimal performance and SSR
 - 📦 **Component Architecture**: Clean, modular component structure for easy maintenance
+- 🔗 **Smart Contract Integration**: Seamless blockchain integration for game sessions, rewards, and leaderboard
 - 🤖 **Auto-Commit**: Automatic git commits with file-based commit messages
 
 ## Prerequisites
@@ -37,6 +38,7 @@ npm install
      # MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/crumpy-game
      JWT_SECRET=your-secret-jwt-key-change-this-in-production
      NEXT_PUBLIC_PROJECT_ID=your-reown-project-id
+     NEXT_PUBLIC_CONTRACT_ADDRESS=0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885
      ```
 
    **Getting your Reown Project ID:**
@@ -44,6 +46,10 @@ npm install
    - Create a new project or use an existing one
    - Copy your Project ID
    - Add it to `.env.local` as `NEXT_PUBLIC_PROJECT_ID`
+
+   **Contract Address:**
+   - Default contract address: `0xF566eAa0B8470817aB0A1A0846A8B9E9f3325885`
+   - To use a different contract, set `NEXT_PUBLIC_CONTRACT_ADDRESS` in `.env.local`
 
 ## Running the Application
 
@@ -84,19 +90,24 @@ The script will detect changed files and create commit messages in the format:
 ```
 crumpy-game/
 ├── components/          # React components
-│   ├── Game2048.js          # Main game component
+│   ├── Game2048.js          # Main game component with contract integration
 │   ├── GameHeader.js        # Page header/title
 │   ├── GameLayout.js        # Layout for game + leaderboard
 │   ├── GameContainer.js     # Main game container
 │   ├── AuthHandler.js       # Custom hook for authentication logic
 │   ├── WalletAuth.js        # Wallet connection component
-│   ├── PointsDisplay.js     # User points and wallet info display
+│   ├── PointsDisplay.js     # User points, rewards, and wallet info display
 │   └── Leaderboard.js       # Top players leaderboard
+├── constants/          # Contract and configuration constants
+│   ├── contractABI.js  # Smart contract ABI
+│   └── index.js        # Exports for constants
 ├── config/             # Configuration files
 │   └── index.js        # Wagmi/Reown AppKit configuration
 ├── context/            # React context providers
 │   └── index.js        # Wagmi and QueryClient providers
 ├── lib/                 # Utility libraries
+│   ├── hooks/          # Custom React hooks
+│   │   └── useContract.js  # Contract interaction hooks
 │   ├── mongodb.js      # MongoDB connection
 │   ├── auth.js         # JWT authentication
 │   └── models/         # Mongoose models
@@ -120,10 +131,13 @@ crumpy-game/
 
 1. Connect your Web3 wallet when prompted
 2. Sign the authentication message (no gas fee required)
-3. Use arrow keys or on-screen buttons to move tiles
-4. Merge tiles with the same number to create higher values
-5. Try to reach 2405!
-6. Earn points based on your score (1 point per 100 score)
+3. A new game session will automatically start on the smart contract
+4. Use arrow keys or on-screen buttons to move tiles
+5. Merge tiles with the same number to create higher values
+6. Try to reach 2405!
+7. Earn points on MongoDB (1 point per 100 score) and on-chain rewards via the contract
+8. When the game ends, your score is automatically recorded on the blockchain
+9. Claim your rewards when you're ready (gas fee required for claiming)
 
 ## API Endpoints
 
