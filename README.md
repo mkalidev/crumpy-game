@@ -101,17 +101,20 @@ npm start
 ### Common Vercel Deployment Issues
 
 **Issue: API route `/api/auth` failing**
+
 - **Solution**: Ensure `MONGO_URI` is set in Vercel environment variables
 - Check Vercel function logs for detailed error messages
 - Verify MongoDB Atlas IP whitelist includes `0.0.0.0/0` or Vercel's IP ranges
 - Ensure MongoDB connection string includes proper authentication
 
 **Issue: MongoDB connection timeout**
+
 - **Solution**: The connection pool is optimized for serverless (max 10 connections)
 - If using MongoDB Atlas, ensure your cluster allows connections from anywhere
 - Check that your connection string format is correct
 
 **Issue: CORS errors**
+
 - **Solution**: CORS headers are included in the API routes
 - If issues persist, check your domain configuration
 
@@ -246,6 +249,7 @@ The app includes custom hooks in `lib/hooks/useContract.js`:
 ### Contract Functions
 
 **Read Functions:**
+
 - `getPlayerStats(address)`: Get player statistics
 - `getActiveGame(address)`: Get current active game
 - `getLeaderboard()`: Get top players
@@ -253,6 +257,7 @@ The app includes custom hooks in `lib/hooks/useContract.js`:
 - `calculateRewards(score)`: Calculate rewards for a score
 
 **Write Functions:**
+
 - `startGame()`: Start a new game session
 - `endGame(uint256 finalScore)`: End game and record score
 - `claimRewards()`: Claim accumulated rewards
@@ -271,6 +276,7 @@ The app includes custom hooks in `lib/hooks/useContract.js`:
 ### Contract Events
 
 The contract emits the following events:
+
 - `GameStarted`: Emitted when a player starts a new game
 - `GameEnded`: Emitted when a game ends with score and rewards
 - `HighScoreUpdated`: Emitted when a player achieves a new high score
