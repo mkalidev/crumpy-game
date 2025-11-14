@@ -5,7 +5,7 @@ A modern puzzle game inspired by 2048, built with Next.js, featuring Web3 wallet
 ## Features
 
 - 🎮 **2405 Game**: Play the classic sliding tile puzzle game with the goal of reaching 2405
-- 🔐 **Wallet Authentication**: Connect your Web3 wallet (MetaMask, etc.) to play
+- 🔐 **Wallet Authentication**: Connect your Web3 wallet using Reown AppKit (formerly WalletConnect) - supports MetaMask, WalletConnect, and many more
 - 💾 **Points System**: Earn and track points saved to MongoDB
 - 🏆 **Leaderboard**: Compete with other players
 - 🎨 **Clean UI**: Beautiful, modern interface with smooth animations
