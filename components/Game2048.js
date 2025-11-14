@@ -274,27 +274,27 @@ export default function Game2048({ onScore }) {
 
       <div className="flex justify-center items-center gap-2 flex-wrap">
         <button 
-          className="bg-[#8f7a66] text-white border-none py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[70px] sm:min-w-[80px]" 
+          className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
           onClick={() => move('left')}
         >
           ← Left
         </button>
         <div className="flex flex-col gap-2">
           <button 
-            className="bg-[#8f7a66] text-white border-none py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[70px] sm:min-w-[80px]" 
+            className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
             onClick={() => move('up')}
           >
             ↑ Up
           </button>
           <button 
-            className="bg-[#8f7a66] text-white border-none py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[70px] sm:min-w-[80px]" 
+            className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
             onClick={() => move('down')}
           >
             ↓ Down
           </button>
         </div>
         <button 
-          className="bg-[#8f7a66] text-white border-none py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-colors hover:bg-[#9f8a76] min-w-[70px] sm:min-w-[80px]" 
+          className="bg-gray-700 text-white border border-gray-600 py-2.5 px-4 rounded-lg text-sm font-bold cursor-pointer transition-all hover:bg-gray-600 hover:border-gray-500 hover:shadow-lg min-w-[70px] sm:min-w-[80px]" 
           onClick={() => move('right')}
         >
           Right →
